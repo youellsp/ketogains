@@ -1,0 +1,73 @@
+<!--<ion-view view-title="Login" name="login-view">-->
+  <!--<ion-content class="padding">-->
+    <!--<div class="list list-inset">-->
+      <!--<label class="item item-input">-->
+        <!--<input type="text" placeholder="Username" ng-model="data.username">-->
+      <!--</label>-->
+      <!--<label class="item item-input">-->
+        <!--<input type="password" placeholder="Password" ng-model="data.password">-->
+      <!--</label>-->
+    <!--</div>-->
+    <!--<button class="button button-block button-calm" ng-click="login()">Login</button>-->
+    <!--<button class="button button-block button-positive ion-social-facebook" ng-click="fbLogin()"> Connect with Facebook</button>-->
+  <!--</ion-content>-->
+<!--</ion-view>-->
+
+<!--<ion-view view-title="Login" class="assertive">-->
+  <!--<ion-content class="padding has-footer">-->
+    <!--<div class="list light-border">-->
+      <!--<img src="img/ketogains_logo_transparent.png" class="logo">-->
+    <!--</div>-->
+    <!--<div class="list-borderless" style="text-align:center">-->
+      <!--<label class="item item-input item-floating-label">-->
+        <!--<span class="input-label">Email</span>-->
+        <!--<input type="text" placeholder="Email" ng-model="user.email">-->
+      <!--</label>-->
+      <!--<label class="item item-input item-floating-label">-->
+        <!--<span class="input-label">Password</span>-->
+        <!--<input type="password" placeholder="Password" ng-model="user.password">-->
+      <!--</label>-->
+      <!--<button ng-click="signIn(user)" class="button button-small button-energized activated">-->
+        <!--Sign In-->
+      <!--</button>-->
+      <!--<button class="button button-small button-positive icon-left ion-social-facebook" ng-click="fbLogin()">-->
+        <!--Connect with Facebook-->
+      <!--</button>-->
+    <!--</div>-->
+  <!--</ion-content>-->
+  <!--<ion-footer-bar>-->
+      <!--<button ng-click="modal.show()" class="button button-large button-block button-positive icon-left ion-person-add">-->
+        <!--Create New Account-->
+      <!--</button>-->
+    <!--</div>-->
+  <!--</ion-footer-bar>-->
+<!--</ion-view>-->
+
+<ion-view view-title="Login">
+  <ion-content class="padding">
+    <div class="list">
+      <img src="img/ketogains_logo_transparent.png" class="logo">
+    </div>
+    <div class="list list-borderless card padding" style="text-align:center">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Username</span>
+        <input type="text" placeholder="Username" ng-model="user.username">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Password</span>
+        <input type="password" placeholder="Password" ng-model="user.password">
+      </label>
+      <button ng-click="lc.signIn(user)" class="button button-small button-energized activated">
+        Sign In
+      </button>
+      <button class="button button-small button-positive icon-left ion-social-facebook" ng-click="lc.fbLogin()">
+        Connect with Facebook
+      </button>
+    </div>
+    <div class="list" style="text-align:center">
+      <button ng-click="lc.modal.show()" class="button button-small button-outline icon-left ion-person-add button-positive">
+        Create New Account
+      </button>
+    </div>
+  </ion-content>
+</ion-view>
