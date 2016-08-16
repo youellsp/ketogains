@@ -38,8 +38,8 @@ angular.module('starter.controllers', [])
     lc.login = function() {
       LoginService.loginUser(lc.data.username, lc.data.password).success(function(data) {
         var alertPopup = $ionicPopup.alert({
-          title: 'Hello',
-          template: 'Welcome to ketogains!'
+          title: 'Welcome Ketogainer!',
+          template: 'Please set your preferences in the "Profile" tab'
         });
 
         // Some fake testing data
@@ -49,9 +49,8 @@ angular.module('starter.controllers', [])
           lastText: 'You on your way?',
           face: 'img/ben.png'
         };
-
         UserService.setUser(user);
-        $state.go('tab.macros');
+        $state.go('tab.profile');
 
       }).error(function(data) {
         var alertPopup = $ionicPopup.alert({
@@ -184,13 +183,32 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('ProfileCtrl', function() {
-  var pfc = this;
+.controller('ProfileCtrl', function($scope, $ionicModal) {
 
-  pfc.profile = {
-    weightUnit: 'lbs',
-    weight: 0,
-    bodyfat: 0,
-    enableFriends: true
+    $scope.profile = {
+      weightUnit: 'lbs',
+      weight: 0,
+      bodyFat: 20.0
+    };
+
+    $scope.openModal = function() {
+      $scope.bodyFatCtrl.show();
+    };
+
+    $scope.closeModal = function() {
+      $scope.bodyFatCtrl.hide();
+    };
+
+    $ionicModal.fromTemplateUrl('templates/bodyfat-estimate.html', function(modal) {
+      $scope.bodyFatCtrl = modal;
+    }, {
+      scope: $scope,
+      animation: 'slide-in-up',
+    });
+  })
+
+.controller('BodyFatModalCtrl', function($scope) {
+  $scope.hideModal = function() {
+    $scope.bodyFatCtrl.hide();
   };
 });

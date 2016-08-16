@@ -1,10 +1,13 @@
 <ion-view view-title="My Macros">
   <ion-content class="padding">
-    <div class="item item-avatar">
-      <img ng-src="{{mc.profileData.picture.data.url}}">
-      <h2>{{mc.profileData.name}}</h2>
-      <p>{{mc.profileData.gender}}</p>
-    </div>
-    </div>
+      <div class="item item-thumbnail-left" href="#">
+        <img ng-src="{{mc.profileData.picture.data.url}}">
+        <h2>{{mc.profileData.name}}</h2>
+        <p>{{mc.profileData.gender}}</p>
+      </div>
+      <div class="item item-divider item-borderless">Goal</div>
+      <ion-radio ng-model="profile.weightUnit" ng-value="'lose'">Lose Fat</ion-radio>
+      <ion-radio ng-model="profile.weightUnit" ng-value="'maintain'">Maintain</ion-radio>
+      <ion-radio ng-model="profile.weightUnit" ng-value="'gain'">Gain Muscle</ion-radio>
   </ion-content>
 </ion-view>

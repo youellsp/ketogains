@@ -1,0 +1,21 @@
+<ion-modal-view>
+  <ion-header-bar class="bar bar-header bar-positive">
+    <h1 class="title">Estimate Body Fat %</h1>
+    <button class="button button-clear button-primary" ng-click="closeModal()">Cancel</button>
+  </ion-header-bar>
+  <ion-content class="padding" ng-controller="BodyFatModalCtrl">
+    <div class="list">
+      <div class="item item-divider">Male Composition</div>
+      <img ng-src="img/BF-Male.jpg" style="width: 100%">
+      <div class="item item-divider">Female Composition</div>
+      <img ng-src="img/BF-Female.jpg" style="width: 100%">
+      <div class="item item-divider">Body Fat {{profile.bodyFat}}%</div>
+      <div class="item range">
+        <i class="icon ion-ios-body-outline"></i>
+        <input type="range" min="0" max="40" name="bodyfat" ng-model="profile.bodyFat">
+        <i class="icon ion-ios-body"></i>
+      </div>
+      <button ng-click="hideModal()" class="button button-block icon-right ion-checkmark-circled button-calm bord">My Body Fat is {{profile.bodyFat}}%</button>
+    </div>
+  </ion-content>
+</ion-modal-view>

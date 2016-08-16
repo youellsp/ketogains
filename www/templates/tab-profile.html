@@ -1,32 +1,38 @@
 <ion-view view-title="Profile">
+  <ion-nav-buttons side="secondary">
+    <button class="button button-small button-calm" ng-click="saveProfile()">
+      Save
+    </button>
+  </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <div class="item item-divider">Unit of Weight</div>
-      <ion-radio ng-model="pfc.profile.weightUnit" ng-value="'lbs'">Pounds</ion-radio>
-      <ion-radio ng-model="pfc.profile.weightUnit" ng-value="'kg'">Kilograms</ion-radio>
-      <div class="item item-divider">Body Composition</div>
+      <div class="item item-divider item-borderless">Unit of Weight</div>
+      <ion-radio ng-model="profile.weightUnit" ng-value="'lbs'">Pounds</ion-radio>
+      <ion-radio ng-model="profile.weightUnit" ng-value="'kg'">Kilograms</ion-radio>
+      <div class="item item-divide"></div>
+      <div class="item item-divider item-borderless">Body Composition</div>
       <label class="item item-input item-label">
-        <span class="input-label">Weight ({{pfc.profile.weightUnit}})</span>
-        <input type="number" placeholder="Enter Weight.." ng-model="pfc.weight">
+        <span class="input-label">Weight ({{profile.weightUnit}})</span>
+        <input type="number" placeholder="Enter Weight.." ng-model="profile.weight">
       </label>
-      <ion-toggle ng-model="pfc.profile.enableFriends">
-          Enable Friends
-      </ion-toggle>
+      <div class="item item-divider"></div>
+      <div class="item item-divider item-borderless">Body Fat {{profile.bodyFat}}%</div>
       <div class="item range">
-        <i class="icon ion-volume-low"></i>
-        <input type="range" name="volume">
-        <i class="icon ion-volume-high"></i>
+        <i class="icon ion-ios-body-outline"></i>
+        <input type="range" min="0" max="40" name="bodyfat" ng-model="profile.bodyFat">
+        <i class="icon ion-ios-body"></i>
       </div>
-      <a class="button button-block icon-right ion-chevron-right button-calm">Help Estimate Body Fat %</a>
-      <label class="item item-input item-select">
+      <button ng-click="openModal()" class="button button-block icon-right ion-help-circled button-calm bord">Help Estimate Body Fat %</button>
+      <div class="item item-divider item-borderless"></div>
+      <label class="item item-input item-select item-borderless">
         <div class="input-label">
           Activity Level
         </div>
         <select>
-          <option selected>Sedentary - Typical desk job / Sitting most of the day</option>
-          <option>Lightly Active - Walking around a good amount, retail jobs</option>
-          <option>Moderately Active - Walking constantly in a fast paced environment, waiting tables</option>
-          <option>Vigorously Active - Very labor intensive, construction workers</option>
+          <option selected>Sedentary - Desk Job</option>
+          <option>Lightly Active - Walking somewhat</option>
+          <option>Moderately Active - Walking constantly</option>
+          <option>Vigorously Active - Very labor intensive</option>
         </select>
       </label>
     </ion-list>
