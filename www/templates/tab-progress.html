@@ -1,16 +1,13 @@
 <ion-view view-title="Progress">
   <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in pgc.chats" type="item-text-wrap" href="#/tab/progress/{{pgc.chat.id}}">
-        <img ng-src="{{pgc.chat.face}}">
-        <h2>{{pgc.chat.name}}</h2>
-        <p>{{pgc.chat.lastText}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-
-        <ion-option-button class="button-assertive" ng-click="pgc.remove(chat)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
+    <div class="card">
+      <div class="item item-divider">
+        My Body Composition
+      </div>
+      <div class="item item-text-wrap">
+        <canvas class="chart chart-line" chart-data="pgc.progress.data" chart-labels="pgc.progress.labels"
+                chart-series="pgc.progress.series" chart-click="pgc.onClick"></canvas>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

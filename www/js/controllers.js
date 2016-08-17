@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('ketogains.controllers', [])
 
 .controller('LoginCtrl', function(LoginService, $ionicPopup, $firebaseAuth, $state, $cordovaOauth, $ionicModal, UserService, Auth) {
 
@@ -97,20 +97,25 @@ angular.module('starter.controllers', [])
       }
     };
 
-    lc.signupEmail = function(){
+    lc.signupEmail = function(isValid){
 
-      var ref = new Firebase("https://ketogains-app.firebaseio.com");
+        // check to make sure the form is completely valid
+        if (isValid) {
+          var ref = new Firebase("https://ketogains-app.firebaseio.com");
 
-      ref.createUser({
-        email    : lc.data.email,
-        password : lc.data.password
-      }, function(error, userData) {
-        if (error) {
-          console.log("Error creating user:", error);
-        } else {
-          console.log("Successfully created user account with uid:", userData.uid);
+          ref.createUser({
+            email    : lc.data.email,
+            password : lc.data.password
+          }, function(error, userData) {
+            if (error) {
+              console.log("Error creating user:", error);
+            } else {
+              console.log("Successfully created user account with uid:", userData.uid);
+            }
+          });
         }
-      });
+
+
 
     };
 
@@ -130,31 +135,38 @@ angular.module('starter.controllers', [])
     };
   })
 
-.controller('ProgressCtrl', function( Chats) {
+.controller('ProgressCtrl', function() {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
   //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
 
   var pgc = this;
 
-  pgc.chats = Chats.all();
-  pgc.remove = function(chat) {
-    Chats.remove(chat);
+  pgc.progress = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    series: ['Series A', 'Series B'],
+    data: [
+      [65, 59, 80, 81, 56, 55, 40],
+      [28, 48, 40, 19, 86, 27, 90]
+    ]
   };
+
+  pgc.onMacroClick = function (points, evt) {
+      console.log(points, evt);
+  };
+
 })
 
-.controller('ProgressDetailCtrl', function( $stateParams, Chats) {
+.controller('ProgressDetailCtrl', function( $stateParams) {
   var pdc = this;
 
   pdc.chat = Chats.get($stateParams.chatId);
+
 })
 
 .controller('MacrosCtrl', function($stateParams, $ionicPopup, $state, UserService, Auth, $http) {
-
     var mc = this;
 
     var authData = Auth.$getAuth();
@@ -173,6 +185,33 @@ angular.module('starter.controllers', [])
           alert("There was a problem getting your profile.  Check the logs for details.");
           console.log(error);
         });
+
+        mc.macros = {
+          labels: ['Protein', 'Fat', 'Carbs'],
+          data: [196, 60, 25],
+          options: {
+            responsive: false,
+            legend:{
+              display: true,
+            },
+            tooltips:{
+              mode: 'single',
+              callbacks: {
+                label: function(tooltipItem, data) {
+                  var allData = data.datasets[tooltipItem.datasetIndex].data;
+                  var tooltipLabel = data.labels[tooltipItem.index];
+                  var tooltipData = allData[tooltipItem.index];
+                  var total = 0;
+                  for (var i in allData) {
+                    total += allData[i];
+                  }
+                  var tooltipPercentage = Math.round((tooltipData / total) * 100);
+                  return tooltipData + 'g ' + tooltipLabel + ' (' + tooltipPercentage + '%)';
+                }
+              }
+            }
+          }
+        }
       } else {
         $state.go("login");
       }

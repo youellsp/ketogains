@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ngCordova','ngCordovaOauth','firebase'])
+angular.module('ketogains', ['ionic', 'ketogains.controllers', 'ketogains.services','ngCordova','ngCordovaOauth','firebase','chart.js'])
 
 
 .run(function($ionicPlatform, $ionicPopup, $ionicLoading, $rootScope, Auth, UserService, $state) {
@@ -71,6 +71,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
 
 })
 
+.config(['ChartJsProvider', function (ChartJsProvider) {
+  // Configure all charts
+  ChartJsProvider.setOptions({
+    chartColors: ['#FF5252', '#FF8A80'],
+    responsive: false
+  });
+  // Configure all line charts
+  ChartJsProvider.setOptions('line', {
+    showLines: false
+  });
+}])
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
@@ -126,6 +138,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
 
   .state('tab.progress', {
       url: '/progress',
+      cache: false,
       views: {
         'tab-progress': {
           templateUrl: 'templates/tab-progress.html',

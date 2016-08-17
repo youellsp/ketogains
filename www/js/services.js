@@ -1,4 +1,4 @@
-angular.module('starter.services', [])
+angular.module('ketogains.services', [])
 
 .factory('Auth', function($firebaseAuth) {
   var endPoint = "https://ketogains-app.firebaseio.com" ;

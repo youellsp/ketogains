@@ -9,5 +9,10 @@
       <ion-radio ng-model="profile.weightUnit" ng-value="'lose'">Lose Fat</ion-radio>
       <ion-radio ng-model="profile.weightUnit" ng-value="'maintain'">Maintain</ion-radio>
       <ion-radio ng-model="profile.weightUnit" ng-value="'gain'">Gain Muscle</ion-radio>
+      <div class="card">
+        <div class="item item-text-wrap">
+          <canvas id="pie" class="chart chart-pie" chart-data="mc.macros.data" chart-labels="mc.macros.labels" chart-options="mc.macros.options"></canvas>
+        </div>
+      </div>
   </ion-content>
 </ion-view>
