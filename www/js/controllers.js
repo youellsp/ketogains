@@ -186,6 +186,8 @@ angular.module('ketogains.controllers', [])
           console.log(error);
         });
 
+        mc.proteinRatio = 100;
+
         mc.macros = {
           labels: ['Protein', 'Fat', 'Carbs'],
           data: [196, 60, 25],

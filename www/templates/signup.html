@@ -5,23 +5,25 @@
   </ion-header-bar>
   <ion-content class="padding">
     <div class="list">
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Username</span>
-        <input type="text" placeholder="Username" ng-model="user.username">
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Email</span>
-        <input type="text" placeholder="Email" ng-model="user.email">
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Password</span>
-        <input type="password" placeholder="Password" ng-model="user.password1">
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Re-type Password</span>
-        <input type="password" placeholder="Re-type Password" ng-model="user.password2">
-      </label>
-      <button class="button button-full button-positive" ng-click="createUser(user)">Create New Account</button>
+      <form>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Username</span>
+          <input type="text" placeholder="Username" ng-model="user.username">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Email</span>
+          <input type="text" placeholder="Email" ng-model="user.email">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Password</span>
+          <input type="password" placeholder="Password" ng-model="user.password1">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Re-type Password</span>
+          <input type="password" placeholder="Re-type Password" ng-model="user.password2">
+        </label>
+        <button class="button button-full button-positive" ng-click="createUser(user)">Create New Account</button>
+      </form>
     </div>
   </ion-content>
 </ion-modal-view>

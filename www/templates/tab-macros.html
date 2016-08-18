@@ -1,18 +1,57 @@
 <ion-view view-title="My Macros">
   <ion-content class="padding">
+    <ion-list>
       <div class="item item-thumbnail-left" href="#">
         <img ng-src="{{mc.profileData.picture.data.url}}">
-        <h2>{{mc.profileData.name}}</h2>
-        <p>{{mc.profileData.gender}}</p>
+        <h2>{{mc.profileData.name}} -  {{mc.profileData.gender}}</h2>
+        <p>Lean Mass: 234(lbs)</p>
+        <p>BMR: 2644(kcal)</p>
+        <p>TEF: 234(kcal)</p>
+        <p>TDEE: 2868(kcal)</p>
       </div>
-      <div class="item item-divider item-borderless">Goal</div>
-      <ion-radio ng-model="profile.weightUnit" ng-value="'lose'">Lose Fat</ion-radio>
-      <ion-radio ng-model="profile.weightUnit" ng-value="'maintain'">Maintain</ion-radio>
-      <ion-radio ng-model="profile.weightUnit" ng-value="'gain'">Gain Muscle</ion-radio>
-      <div class="card">
-        <div class="item item-text-wrap">
-          <canvas id="pie" class="chart chart-pie" chart-data="mc.macros.data" chart-labels="mc.macros.labels" chart-options="mc.macros.options"></canvas>
+      <label class="item item-input item-select item-borderless">
+        <div class="input-label">
+          Goal
         </div>
+        <select>
+          <option selected>Lose Fat</option>
+          <option>Maintain</option>
+          <option>Gain Muscle</option>
+        </select>
+      </label>
+      <div class="item item-divider item-borderless">Protein/Lean Mass Ratio {{(mc.proteinRatio/100) | number:2}}</div>
+      <div class="item range">
+        <i class="icon ion-ios-body-outline"></i>
+        <input type="range" min="69" max="120" name="proteinRatio" ng-model="mc.proteinRatio">
+        <i class="icon ion-ios-body"></i>
       </div>
+      <ion-slide-box>
+        <ion-slide>
+          <div class="card">
+            <h4>Standard Ketogenic Diet</h4>
+            <div class="item item-text-wrap">
+              <canvas id="pie" class="chart chart-pie" chart-data="mc.macros.data" chart-labels="mc.macros.labels" chart-options="mc.macros.options"></canvas>
+            </div>
+          </div>
+        </ion-slide>
+        <ion-slide>
+          <div class="card">
+            <h4>Targeted Ketogenic Diet</h4>
+            <div class="item item-text-wrap">
+              <canvas id="pie" class="chart chart-pie" chart-data="mc.macros.data" chart-labels="mc.macros.labels" chart-options="mc.macros.options"></canvas>
+            </div>
+          </div>
+        </ion-slide>
+        <ion-slide>
+          <div class="card">
+            <h4>Cyclic Ketogenic Diet</h4>
+            <div class="item item-text-wrap">
+              <canvas id="pie" class="chart chart-pie" chart-data="mc.macros.data" chart-labels="mc.macros.labels" chart-options="mc.macros.options"></canvas>
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+
+    </ion-list>
   </ion-content>
 </ion-view>
