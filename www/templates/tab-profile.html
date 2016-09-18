@@ -28,11 +28,8 @@
         <div class="input-label">
           Activity Level
         </div>
-        <select>
-          <option selected>Sedentary - Desk Job</option>
-          <option>Lightly Active - Walking somewhat</option>
-          <option>Moderately Active - Walking constantly</option>
-          <option>Vigorously Active - Very labor intensive</option>
+        <select ng-model="profile.activityLevel" required="required"
+                ng-options="option.value as option.name for option in activityLevelOptions">
         </select>
       </label>
     </ion-list>

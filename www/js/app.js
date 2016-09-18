@@ -8,12 +8,12 @@
 angular.module('ketogains', ['ionic', 'ketogains.controllers', 'ketogains.services','ngCordova','ngCordovaOauth','firebase','chart.js'])
 
 
-.run(function($ionicPlatform, $ionicPopup, $ionicLoading, $rootScope, Auth, UserService, $state) {
+.run(function($window, $state, $timeout, $ionicHistory, $ionicPlatform, $ionicPopup, $ionicLoading, $rootScope, Auth, LoadingService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
       cordova.plugins.Keyboard.disableScroll(true);
 
     }
@@ -23,24 +23,25 @@ angular.module('ketogains', ['ionic', 'ketogains.controllers', 'ketogains.servic
     }
 
     Auth.$onAuth(function (authData) {
-      $ionicLoading.show();
-      if (authData) {
-        if(authData.provider == 'facebook'){
-          UserService.setUserToken(authData.facebook.accessToken);
+      if(authData != null){
+        if (!(authData.auth.token.email_verified)) {
+          LoadingService.hideLoading('tab.macros');
+        } else {
+          authData.uid.sendEmailVerification();
+          var alertPopup = $ionicPopup.alert({
+            title: 'Email Address Verification',
+            template: 'Please verify your email address. A verification email has been sent'
+          });
+          LoadingService.hideLoading('login');
         }
-        $state.go('tab.macros');
-        $ionicLoading.hide();
-      } else {
-        console.log("Logged out");
-        $ionicLoading.hide();
-        $state.go('login');
+      }else{
+        LoadingService.hideLoading('login');
       }
-    })
+    });
 
     $rootScope.logout = function () {
-      console.log("Logging out from the app");
       showConfirm();
-      // A confirm dialog
+
       function showConfirm(){
         var confirmPopup = $ionicPopup.confirm({
           title: 'Logout',
@@ -48,18 +49,18 @@ angular.module('ketogains', ['ionic', 'ketogains.controllers', 'ketogains.servic
         });
 
         confirmPopup.then(function(res) {
-          if(res) {
+          if(res){
             Auth.$unauth();
-            console.log('User is sure they want to log out');
-          } else {
-            console.log('User cancelled log out');
-            $state.go('tab.macros');
+            $window.localStorage.clear();
+            $ionicHistory.clearCache();
+            $ionicHistory.clearHistory();
+            $state.go('login');
           }
         });
       }
     }
 
-    $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+    $rootScope.$on("$stateChangeError", function (event, toState, toParams, $state, fromState, fromParams, error) {
       // We can catch the error thrown when the $requireAuth promise is rejected
       // and redirect the user back to the home page
       if (error === "AUTH_REQUIRED") {
@@ -142,7 +143,7 @@ angular.module('ketogains', ['ionic', 'ketogains.controllers', 'ketogains.servic
       views: {
         'tab-progress': {
           templateUrl: 'templates/tab-progress.html',
-          controller: 'ProgressCtrl as pgc'
+          controller: 'ProgressCtrl'
         }
       }
     })

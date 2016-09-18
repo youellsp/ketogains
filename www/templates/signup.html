@@ -3,26 +3,30 @@
     <h1 class="title">Create Account</h1>
     <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
   </ion-header-bar>
-  <ion-content class="padding">
+  <ion-content class="padding" ng-controller="SignupModalCtrl">
     <div class="list">
-      <form>
-        <label class="item item-input item-floating-label">
-          <span class="input-label">Username</span>
-          <input type="text" placeholder="Username" ng-model="user.username">
-        </label>
-        <label class="item item-input item-floating-label">
-          <span class="input-label">Email</span>
-          <input type="text" placeholder="Email" ng-model="user.email">
-        </label>
-        <label class="item item-input item-floating-label">
-          <span class="input-label">Password</span>
-          <input type="password" placeholder="Password" ng-model="user.password1">
-        </label>
-        <label class="item item-input item-floating-label">
-          <span class="input-label">Re-type Password</span>
-          <input type="password" placeholder="Re-type Password" ng-model="user.password2">
-        </label>
-        <button class="button button-full button-positive" ng-click="createUser(user)">Create New Account</button>
+      <form name="signupForm" ng-submit="signup(signupForm.$valid)" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : signupForm.email.$invalid && !signupForm.email.$pristine }">
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Email</span>
+            <input name="email" type="email" class="form-control" placeholder="Email" required ng-model="email">
+          </label>
+          <!--<p ng-show="signupForm.email.$invalid && !signupForm.email.$pristine" class="help-block">Enter a valid email.</p>-->
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : signupForm.password.$invalid && !signupForm.password.$pristine }">
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Password</span>
+            <input name="password"type="password" placeholder="Password" ng-minlength="6" required ng-model="password">
+          </label>
+          <!--<p ng-show="signupForm.password.$error.minlength" class="help-block">Password is too short. (6 characters min)</p>-->
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : signupForm.password.$invalid && !signupForm.password.$pristine }">
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Re-type Password</span>
+            <input name="confirm_password" type="password" placeholder="Re-type Password">
+          </label>
+          <button class="button button-full button-positive">Create New Account</button>
+        </div>
       </form>
     </div>
   </ion-content>
