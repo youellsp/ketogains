@@ -7,19 +7,19 @@
   <ion-content>
     <ion-list>
       <div class="item item-divider item-borderless">Unit of Weight</div>
-      <ion-radio ng-model="profile.weightUnit" ng-value="'lbs'">Pounds</ion-radio>
-      <ion-radio ng-model="profile.weightUnit" ng-value="'kg'">Kilograms</ion-radio>
+      <ion-radio ng-change="changeWeightUnit()" ng-model="profile.weightUnit" ng-value="'lbs'">Pounds</ion-radio>
+      <ion-radio ng-change="changeWeightUnit()" ng-model="profile.weightUnit" ng-value="'kg'">Kilograms</ion-radio>
       <div class="item item-divide"></div>
       <div class="item item-divider item-borderless">Body Composition</div>
       <label class="item item-input item-label">
         <span class="input-label">Weight ({{profile.weightUnit}})</span>
-        <input type="number" placeholder="Enter Weight.." ng-model="profile.weight">
+        <input ng-change="bodyCompChange()" type="number" string-to-number step="0.1" placeholder="Enter Weight.." ng-model="profile.weight">
       </label>
       <div class="item item-divider"></div>
       <div class="item item-divider item-borderless">Body Fat {{profile.bodyFat}}%</div>
       <div class="item range">
         <i class="icon ion-ios-body-outline"></i>
-        <input type="range" min="0" max="40" name="bodyfat" ng-model="profile.bodyFat">
+        <input type="range" min="0" max="40" name="bodyfat" ng-change="bodyCompChange()" ng-model="profile.bodyFat">
         <i class="icon ion-ios-body"></i>
       </div>
       <button ng-click="openModal()" class="button button-block icon-right ion-help-circled button-calm bord">Help Estimate Body Fat %</button>
@@ -28,7 +28,7 @@
         <div class="input-label">
           Activity Level
         </div>
-        <select ng-model="profile.activityLevel" required="required"
+        <select ng-change="bodyCompChange()" ng-model="profile.activityLevel" required="required"
                 ng-options="option.value as option.name for option in activityLevelOptions">
         </select>
       </label>

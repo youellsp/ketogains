@@ -1,13 +1,17 @@
 <ion-view view-title="My Macros">
   <ion-content class="padding">
     <ion-list>
+      <ion-refresher
+              pulling-text="Pull to re-calculate macros..."
+              on-refresh="mc.refreshMacros()">
+      </ion-refresher>
       <div class="item item-thumbnail-left" href="#">
         <img ng-src="{{mc.profile.picture}}">
         <h2>Welcome {{mc.firstName}}!</h2>
-        <p>Lean Mass: {{mc.profile.weight}}({{mc.profile.weightUnit}})</p>
-        <p>BMR: 2644(kcal)</p>
-        <p>TEF: 234(kcal)</p>
-        <p>TDEE: 2868(kcal)</p>
+        <h4>Total Weight: {{mc.profile.weight}} ({{mc.profile.weightUnit}})</h4>
+        <h4>Lean Mass: {{mc.profile.leanMass}} ({{mc.profile.weightUnit}})</h4>
+        <h4>BMR: {{mc.profile.bmr}} (kcal)</h4>
+        <h4>TDEE: {{mc.profile.tdee}} (kcal)</h4>
       </div>
       <label class="item item-input item-select item-borderless">
         <div class="input-label">
@@ -24,12 +28,12 @@
       <div ng-show="mc.macros.surplus > 0" class="item item-divider item-borderless">Calorie Surplus {{mc.macros.surplus}}%</div>
       <div ng-show="mc.macros.goal=='LOSE'"class="item range">
         <i class="icon ion-ios-nutrition-outline"></i>
-        <input type="range" min=1 max=25 name="" ng-change="mc.save()" ng-model="mc.macros.deficit">
+        <input type="range" min="1" max="25" name="" ng-change="mc.refreshMacros()" ng-model="mc.macros.deficit">
         <i class="icon ion-ios-nutrition"></i>
       </div>
       <div ng-show="mc.macros.goal=='GAIN'"class="item range">
         <i class="icon ion-ios-nutrition-outline"></i>
-        <input type="range" min=1 max=25 name="" ng-change="mc.save()" ng-model="mc.macros.surplus">
+        <input type="range" min="1" max="25" name="" ng-change="mc.refreshMacros()" ng-model="mc.macros.surplus">
         <i class="icon ion-ios-nutrition"></i>
       </div>
       <label class="item item-input item-select item-borderless">
@@ -39,13 +43,13 @@
         <select ng-model="mc.macros.protocol" required="required"
                 ng-options="option.value as option.name for option in mc.protocols"
                 ng-init="mc.macros.protocol = 'SKD'"
-                ng-change="mc.save()">
+                ng-change="mc.changeProtocol()">
         </select>
       </label>
       <div class="item item-divider item-borderless">Protein/Lean Mass Ratio {{(mc.macros.proteinRatio/100) | number:2}}</div>
       <div class="item range">
         <i class="icon ion-ios-nutrition-outline"></i>
-        <input type="range" min=69 max=120 name="macros.proteinRatio" ng-change="mc.save()" ng-model="mc.macros.proteinRatio">
+        <input type="range" min=69 max=120 name="macros.proteinRatio" ng-change="mc.refreshMacros()" ng-model="mc.macros.proteinRatio">
         <i class="icon ion-ios-nutrition"></i>
       </div>
       <div ng-show="mc.macros.proteinRatio == 69" class="item item-divider item-borderless">Ketogains recommends 1g of protein/per 1lb of lean mass</div>
@@ -53,6 +57,7 @@
         <ion-slide>
           <div class="card">
             <h4>Standard Ketogenic Diet</h4>
+            <h5>Total Calories: {{mc.macros.totalCalories}}</h5>
             <div class="item item-text-wrap">
               <canvas id="pie" class="chart chart-pie" chart-data="mc.macrosGraph.data" chart-labels="mc.macrosGraph.labels" chart-colors="mc.macrosGraph.options.colors" chart-options="mc.macrosGraph.options"></canvas>
             </div>
@@ -63,6 +68,7 @@
         <ion-slide>
           <div class="card">
             <h4>Targeted Ketogenic Diet</h4>
+            <h5>Total Calories: {{mc.macros.totalCalories}}</h5>
             <div class="item item-text-wrap">
               <canvas id="pie" class="chart chart-pie" chart-data="mc.macrosGraph.data" chart-labels="mc.macrosGraph.labels" chart-colors="mc.macrosGraph.colors" chart-options="mc.macrosGraph.options"></canvas>
             </div>
@@ -74,6 +80,7 @@
           <div class="card">
             <h4>Cyclic Ketogenic Diet</h4>
             <h5>Normal Day</h5>
+            <h5>Total Calories: {{mc.macros.totalCalories}}</h5>
             <div class="item item-text-wrap">
               <canvas id="pie" class="chart chart-pie" chart-data="mc.macrosGraph.data" chart-labels="mc.macrosGraph.labels" chart-colors="mc.macrosGraph.colors" chart-options="mc.macrosGraph.options"></canvas>
             </div>
@@ -83,6 +90,7 @@
           <div class="card">
             <h4>Cyclic Ketogenic Diet</h4>
             <h5>Carb Day</h5>
+            <h5>Total Calories: {{mc.macros.totalCalories}}</h5>
             <div class="item item-text-wrap">
               <canvas id="pie" class="chart chart-pie" chart-data="mc.macrosGraphCarbDay.data" chart-labels="mc.macrosGraphCarbDay.labels" chart-colors="mc.macrosGraphCarbDay.colors" chart-options="mc.macrosGraphCarbDay.options"></canvas>
             </div>

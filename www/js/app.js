@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('ketogains', ['ionic', 'ketogains.controllers', 'ketogains.services','ngCordova','ngCordovaOauth','firebase','chart.js'])
+angular.module('ketogains', ['ionic', 'ketogains.controllers', 'ketogains.services','ngCordova','ngCordovaOauth','firebase','chart.js','ngMessages'])
 
 
 .run(function($window, $state, $timeout, $ionicHistory, $ionicPlatform, $ionicPopup, $ionicLoading, $rootScope, Auth, LoadingService) {
@@ -75,8 +75,7 @@ angular.module('ketogains', ['ionic', 'ketogains.controllers', 'ketogains.servic
 .config(['ChartJsProvider', function (ChartJsProvider) {
   // Configure all charts
   ChartJsProvider.setOptions({
-    chartColors: ['#FF5252', '#FF8A80'],
-    responsive: false
+    chartColors: ['#03eaf0', '#c992e1', '#f25656']
   });
   // Configure all line charts
   ChartJsProvider.setOptions('line', {

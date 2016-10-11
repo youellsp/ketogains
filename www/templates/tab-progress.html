@@ -9,5 +9,10 @@
                 chart-series="progressChart.series" chart-click="onClick"></canvas>
       </div>
     </div>
+    <ion-list>
+      <ion-item ng-repeat="entry in bodyCompEntries">
+        {{entry.date}} - {{entry.weight}}
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
